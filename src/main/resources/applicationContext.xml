@@ -14,18 +14,38 @@
     <!-- 配置ApplicationContextAware 接口的实现类 用来Web环境下，没有ServletContext情况获取 ApplicationContext 对象 -->
     <bean id="springContextHelper" class="springdemo.contextaware.SpringContextHelper"></bean> 
 
-	<bean id="userDao" class="springdemo.dao.UserDaoImpl"></bean>	
+	<bean id="userDao" class="springdemo.dao.UserDaoImpl"></bean>
 	
 	<!-- 通过属性注入 -->
 	<bean id="userService" class="springdemo.service.UserServiceImpl"  >	
 		<property name="userDao" ref="userDao"></property>
 	</bean>
+
 	
+<!-- 	内部Bean -->
+<!-- 	<bean id="userService" class="springdemo.service.UserServiceImpl"  >	 -->
+<!-- 		<property name="userDao" > -->
+<!-- 			<bean class="springdemo.dao.UserDaoImpl"></bean> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 	
 	
 <!-- 	通过构造函数注入 -->
 <!-- 	<bean id="userService" class="springdemo.service.UserServiceImpl"  > -->
 <!-- 		<constructor-arg ref="userDao"></constructor-arg>	 -->
+<!-- 	</bean> -->
+	
+<!-- 	通过实例工厂方法注入 -->
+<!-- 	<bean id="userDaoFactory"  class="springdemo.dao.UserDaoFactory"></bean> -->
+<!-- 	<bean id="userDao" factory-bean="userDaoFactory" factory-method="getUserDao"></bean> -->
+<!-- 	<bean id="userService" class="springdemo.service.UserServiceImpl"  >	 -->
+<!-- 		<property name="userDao" ref="userDao"></property> -->
+<!-- 	</bean> -->
+
+<!-- 	通过静态工厂方法注入 -->
+<!-- 	<bean id="userDao" class="springdemo.dao.UserDaoStaticFactory" factory-method="getUserDao" /> -->
+<!-- 	<bean id="userService" class="springdemo.service.UserServiceImpl"  >	 -->
+<!-- 		<property name="userDao" ref="userDao"></property> -->
 <!-- 	</bean> -->
 	
 
@@ -41,6 +61,12 @@
 <!-- 	根据构造函数自动注入 -->
 <!-- 	<bean id="userService" class="springdemo.service.UserServiceImpl" autowire="constructor"  >	 -->
 <!-- 	</bean> -->
+
+
+	<bean id="person" class="springdemo.lookup.Person" scope="prototype" />
+	<bean id="company" class="springdemo.lookup.Company">
+		<lookup-method name="createPerson" bean="person" />
+	</bean>
 
 
 

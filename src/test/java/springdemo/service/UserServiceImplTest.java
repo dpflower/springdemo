@@ -30,6 +30,7 @@ public class UserServiceImplTest {
 	@Test
 	public void testUser() {
 		UserService userService = (UserService)beanFactory.getBean("userService");	
+		//UserService userService = beanFactory.getBean(UserService.class);
 		UserInfo user = new UserInfo();
 		user.setAge(30);
 		user.setUserName("test");
